@@ -1,1 +1,1 @@
-# mini projects
+# contains mini projects
