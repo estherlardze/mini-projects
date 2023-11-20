@@ -68,6 +68,8 @@ textarea{
 }
 .postCredit {
   font-size: 1rem;
+  margin-top: 10px;
+  font-weight: 700;
 }
 
 .reactionButton {

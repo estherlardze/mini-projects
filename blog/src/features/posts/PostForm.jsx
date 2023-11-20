@@ -1,30 +1,32 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
 import { postAdded } from './postSlice';
+import { selectedUser } from '../users/UsersSlice'
 
 
 const PostForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [userId, setUserId] = useState('');
+  
   const dispatch = useDispatch()
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
+  const users = useSelector(selectedUser)
 
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
-  };
+
+  const AuthorChange = users.map((user) => (
+    <option value={user.id} key={user.id}>{user.name}</option>
+  ))
+
+  const handleTitleChange = (e) => setTitle(e.target.value);
+  const handleContentChange = (e) => setContent(e.target.value);
+  const handleAuthorChange = (e) => setUserId(e.target.value);
+
 
   const onButtonClick = () => {
     if(title && content){
     dispatch(
-        postAdded({
-            id:nanoid(),
-            title,
-            content
-        })
+        postAdded(title, content, userId)
     )
     setTitle("")
     setContent("")
@@ -39,13 +41,20 @@ const PostForm = () => {
         <input
           type="text"
           id="title"
-          name='postTitle'
+          name='title'
           value={title}
           onChange={handleTitleChange}
         />
         </div>
-     
-      <br />
+        
+        <div style={{display:"flex", alignItems:"start", gap:"10px", marginTop:"20px"}}>
+        <label htmlFor="author">Author:</label>
+        <select value={userId} onChange={handleAuthorChange}>
+         <option value=""></option>
+          {AuthorChange}
+       </select>
+        </div>
+
       <div style={{display:"flex", alignItems:"start", gap:"10px"}}>
        <label htmlFor="content">Content:</label>
         <textarea
@@ -59,7 +68,7 @@ const PostForm = () => {
         type='button'
         onClick={onButtonClick}
         style={{backgroundColor:"black", padding:"10px 30px", color:"white", borderRadius:"10px", border:"0px", cursor:"pointer"}}
-        >
+       >
         Save
      </button>
       </form>
