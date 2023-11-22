@@ -1,4 +1,11 @@
-body{
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+}
+
+.app{
     display: flex;
     height: 100vh;
     align-items: center;
@@ -21,9 +28,90 @@ form{
     justify-content: center;
 }
 button{
-    background-color: rgb(66, 66, 184);
+    background-color: rgb(84, 84, 238);
      color: white;
      padding: 10px 20px;
      border: 0;
      cursor: pointer;
+}
+nav{
+   display: flex;
+   align-items: center;
+   justify-content: space-between; 
+   background-color: rgba(0, 0, 0 , 0.1);
+   padding: 20px;
+}
+nav h1{
+    color: rgb(70, 70, 228);
+    font-weight: 700;
+}
+nav div{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+nav div .link{
+    text-decoration: none;
+    color: black;
+    transition: all 300 ease-in-out  ;
+    padding: 7px 12px;
+}
+nav div .link:hover{
+    background-color: rgb(84, 84, 238);
+    border-radius: 6px;
+    padding: 7px 12px;
+    color: white;
+}
+nav div .link:focus{
+    background-color: rgb(84, 84, 238);
+    border-radius: 6px;
+    padding: 7px 12px;
+    color: white;
+}
+.cards{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+th, td {
+    padding: 12px 8px;  
+    border: 1px solid rgb(228, 223, 223);
+  }
+.odd{
+    background-color: rgba(0, 0, 0 , 0.1);
+}
+.even{
+    background-color: white;
+}
+  th {
+    background-color:  rgb(11, 163, 117);
+    border: 1px solid rgb(11, 163, 117);
+    color: white;
+  }
+  table {
+    width: 50%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-bottom: 2px solid rgb(11, 163, 117);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    
+  }
+ 
+  .update{
+     margin: 0 5px;
+     text-decoration: none;
+     color: black;
+     background-color: rgb(84, 84, 238);
+     padding: 3px 7px;
+     color: white;
+     border-radius: 7px;
+  }
+.second{
+    background-color: rgb(182, 47, 47);
+}
+.third{
+    background-color: rgba(0, 0, 0 , 0.2);
+    color: white;
 }

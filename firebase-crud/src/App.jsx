@@ -1,6 +1,6 @@
-import Auth from "./components/Auth"
-import Home from "./components/Home"
-import Login from "./components/Login"
+import Signup from "./pages/Signup"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Auth/>}/>
+          <Route path="/" element={<Signup/>}/>
           <Route path="/home" element={<Home/>}/>
           <Route path="/login" element={<Login/>}/>
          </Routes>

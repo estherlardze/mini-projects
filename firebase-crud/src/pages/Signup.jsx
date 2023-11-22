@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { auth, googleProvider } from '../../config/firebase'
-import {signInWithEmailAndPassword, signInWithPopup, } from 'firebase/auth'
+import {createUserWithEmailAndPassword, signInWithPopup} from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 
-const Auth = () => {
+const Signup = () => {
 const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
 const navigate = useNavigate()
@@ -14,12 +14,12 @@ const signIn = async(e) => {
   e.preventDefault()
 
   try{
-     await signInWithEmailAndPassword(auth, email, password)
+     await createUserWithEmailAndPassword(auth, email, password)
      navigate("/home")
     }
   catch(error)
     {
-      console.error("Error signing in", error)
+      console.error("Error creating user", error)
      }}
 
 
@@ -37,7 +37,9 @@ const signIn = async(e) => {
         }}
 
   return (
+    <div className='app'>
     <form>
+      <h1>Sign Up</h1>
       <input type="email"
         placeholder='Email' 
         value={email}
@@ -50,11 +52,14 @@ const signIn = async(e) => {
         onChange={(e) => setPassword(e.target.value)}
         style={{}}
         />
-        <button type="submit" onClick={signIn}>Login</button>
-        <p onClick={signInWithGoogle}>Sign in with Google</p>
-        <p>Don't have an account ? <Link to="/">Signup</Link></p>
+        <button type="submit" onClick={signIn}>Sign up</button>
+        <p onClick={signInWithGoogle} style={{cursor:"pointer"}}>
+          Sign in with Google
+        </p>
+        <p>Already have an account? <Link to="/login">Login</Link></p>
     </form>
+    </div>
   )
 }
 
-export default Auth
+export default Signup
