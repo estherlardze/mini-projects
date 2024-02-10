@@ -1,53 +1,40 @@
-import { useSelector, useDispatch } from "react-redux"
-import { increment, decrement, reset, addByAmount } from "../store/index"
-import { useState } from "react"
-import {useAuthState} from 'react-firebase-hooks/auth'
-import { auth } from '../config/firebase'
-
-function App() {
-   const [addAmount, setAddAmount] = useState(0)
-   const counter = useSelector((state) => state.counter)
-   const dispatch = useDispatch()
-   const [user, loading, error] = useAuthState(auth)
+import React, {useState} from 'react'
+import { useDispatch, useSelector} from 'react-redux'
+import { increment, decrement, incrementByAmount, reset } from '../features/CounterSlice'
 
 
-   const checkForNum = Number(addAmount) || 0
+
+const Home = () => {
+  const dispatch = useDispatch()
+  const count = useSelector((state) => state.counter.value)
+  const [incrementBy, setIncrementBy] = useState(0)
+  
+  const addNumber = Number(incrementBy) || 0
 
   const resetAll = () => {
-    setAddAmount(0)
+    setIncrementBy(0)
     dispatch(reset())
   }
 
+console.log(count)
+
   return (
-
-    <>
-    {loading ? (<div>Loading...</div>) : 
-
-    ( 
     <div>
-    <h1>Counter</h1>
-      <h2>{counter}</h2>
-
-      <div style={{display:"flex", gap:"20px"}}>
+      <div className='app'>
         <button onClick={() => dispatch(increment())}>Increment</button>
         <button onClick={() => dispatch(decrement())}>Decrement</button>
-      </div>
-
+        <button onClick={resetAll}>reset</button>
+       
+      </div>  <br />  
       <input 
         type="text" 
-        value={addAmount}
-        onChange={(e) => setAddAmount(e.target.value)}
-        style={{outline:"none", padding:"5px 0", margin:"20px 0", fontSize:"20px", width:"50px"}}
-      /> 
-
-     <div  style={{display:"flex", gap:"20px"}}>
-      <button onClick={resetAll}>Reset</button>
-      <button onClick={() => dispatch(addByAmount(checkForNum))}>Add by Amount</button>
-     </div>
-     </div>
-    )}   
-    </>
+        value={incrementBy}
+        onChange={(e) => setIncrementBy(e.target.value)} 
+      /><br /> <br />
+       <button onClick={() => dispatch(incrementByAmount(addNumber))}>Increment by Amount</button>
+      <p>Count: {count}</p>
+    </div>
   )
 }
 
-export default App
+export default Home
