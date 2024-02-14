@@ -15,6 +15,6 @@ const usersSlice = createSlice({
     }
 })
 
-export const selectedUser = (state) => state.users
+export const selectedUsers = (state) => state.users
 
 export default usersSlice.reducer

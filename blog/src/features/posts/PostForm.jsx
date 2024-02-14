@@ -1,22 +1,20 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { postAdded } from './postSlice';
-import { selectedUser } from '../users/UsersSlice'
+import { selectedUsers } from '../users/UsersSlice'
 
 
 const PostForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState('');
+  //console.log('userid', userId)
   
   const dispatch = useDispatch()
 
-  const users = useSelector(selectedUser)
+  const users = useSelector(selectedUsers)
+ // console.log(users)
 
-
-  const AuthorChange = users.map((user) => (
-    <option value={user.id} key={user.id}>{user.name}</option>
-  ))
 
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
@@ -31,6 +29,14 @@ const PostForm = () => {
     setTitle("")
     setContent("")
 }};
+
+const userOptions  =  users.map((user) => (
+    <option key={user.id} value={user.id}>
+      {user.name}
+    </option>
+  ))
+ 
+  const save = Boolean(title) && Boolean(content) && Boolean(userId)
 
   return (
     <section className='form'>
@@ -48,11 +54,12 @@ const PostForm = () => {
         </div>
         
         <div style={{display:"flex", alignItems:"start", gap:"10px", marginTop:"20px"}}>
-        <label htmlFor="author">Author:</label>
-        <select value={userId} onChange={handleAuthorChange}>
-         <option value=""></option>
-          {AuthorChange}
-       </select>
+          <label htmlFor="author">Author:</label>
+          <select id="author" value={userId} onChange={handleAuthorChange}>
+            
+            <option value=""></option>
+            {userOptions}
+          </select>
         </div>
 
       <div style={{display:"flex", alignItems:"start", gap:"10px"}}>
@@ -65,12 +72,14 @@ const PostForm = () => {
       <br />
       </div>
       <button 
-        type='button'
-        onClick={onButtonClick}
-        style={{backgroundColor:"black", padding:"10px 30px", color:"white", borderRadius:"10px", border:"0px", cursor:"pointer"}}
-       >
-        Save
-     </button>
+          type='button'
+          onClick={onButtonClick}
+          disabled={!save}
+          style={{backgroundColor:"white", padding:"10px 30px", color:"black", borderRadius:"10px", border:"0px", cursor:"pointer"}}
+        >
+          Save
+      </button>
+      
       </form>
     
     </section>

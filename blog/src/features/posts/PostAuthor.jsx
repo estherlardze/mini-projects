@@ -1,15 +1,16 @@
-import { selectedUser } from '../users/UsersSlice'
+import { selectedUsers } from '../users/UsersSlice'
 import {useSelector } from 'react-redux'
 
 
-const PostAuthor = ({userId}) => {
+const PostAuthor = ({ userId }) => {
 
-    const users = useSelector(selectedUser)
+    const users = useSelector(selectedUsers)
+   // console.log('users', users)
     const author = users.find((user) => user.id === userId)
 
-    //console.log(author)
+   console.log(author)
 
-   return <span> By: {" "} {author ? author.name : "Unknown Author"}</span>
+   return <span> By: {author ? author.name : "Unknown Author"}</span>
  
   
 }
